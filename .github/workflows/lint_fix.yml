@@ -1,33 +1,26 @@
-name: Lint and Fix 
+name: Lint and Fix
 
-on:
-  push:
-    branches: [master]
+on: [push, pull_request]
 
 jobs:
-  lint-and-fix:
+  lint:
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v2
 
-    - name: Setup Node.js
-      uses: actions/setup-node@v2
+    - name: Set up Python
+      uses: actions/setup-python@v2
       with:
-        node-version: '16'
+        python-version: 3.9
 
     - name: Install dependencies
-      run: npm ci
-
-    - name: Lint and Fix 
-        run: |
-          python -m pip install --upgrade pip
-          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-        
-    - name: Commit changes
       run: |
-        git config user.name "buffeinstein"
-        git config user.email "ambikatiwari999@gmail.com
-        git add -u
-        git commit -m "Automatically fix linting issues"
-        git push
+        python -m pip install --upgrade pip
+        pip install pycodestyle autopep8
+
+    - name: Lint and fix Python code
+      run: |
+        pycodestyle .
+        autopep8 --in-place --recursive .
+
