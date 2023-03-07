@@ -19,10 +19,6 @@ def cmp_standard(a, b):
     return 0
 
 
-
-
-
-
 def cmp_reverse(a, b):
     '''
     used for sorting from highest to lowest
@@ -32,9 +28,9 @@ def cmp_reverse(a, b):
     >>> cmp_reverse(523, 322)
     -1
     '''
-    if a<b:
+    if a < b:
         return 1
-    if b<a:
+    if b < a:
         return -1
     return 0
 
@@ -107,9 +103,6 @@ def quick_sorted(xs, cmp=cmp_standard):
         xs_lt = quick_sorted(xs_lt, cmp=cmp)
         xs_gt = quick_sorted(xs_gt, cmp=cmp)
         return xs_lt + xs_eq + xs_gt
-
-
-
 
 
 def quick_sort(xs, cmp=cmp_standard):
